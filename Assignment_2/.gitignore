@@ -1,0 +1,7 @@
+# Data (DVC handles)
+data/raw/*.csv
+data/processed/*.csv
+mlruns/
+mlflow.db
+.DS_Store
+__pycache__/

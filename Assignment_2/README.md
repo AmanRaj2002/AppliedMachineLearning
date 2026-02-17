@@ -29,10 +29,10 @@ git add data/processed/.gitignore data/processed/*.csv.dvc
 git commit -m "v1: Add processed splits (seed=42)"
 ```
 
-## DVC Version 2 (seed=123)
+## DVC Version 2 (seed=28)
 ```bash
 # 6. Create v2 splits
-# Edit notebooks/prepare.ipynb: SPLIT_RANDOM_STATE = 123
+# Edit notebooks/prepare.ipynb: SPLIT_RANDOM_STATE = 28
 # Rerun Cells 2-6
 
 # 7. Track v2

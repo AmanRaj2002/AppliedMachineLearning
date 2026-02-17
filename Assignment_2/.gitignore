@@ -1,7 +1,16 @@
-# Data (DVC handles)
-data/raw/*.csv
-data/processed/*.csv
-mlruns/
-mlflow.db
-.DS_Store
+# DVC: ignore actual data
+data/**/*.csv
+data/**/*.pkl
+
+# MLflow: ignore ALL local artifacts
+**/mlruns/
+**/mlflow.db
+**/mlflow/
+
+# Python
 __pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db

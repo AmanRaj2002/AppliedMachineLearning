@@ -1,0 +1,19 @@
+[1m============================= test session starts ==============================[0m
+platform darwin -- Python 3.12.2, pytest-9.0.2, pluggy-1.5.0
+rootdir: /Users/amanraj/Developer/AppliedMachineLearning/Assignment_3
+plugins: anyio-4.2.0, cov-7.0.0
+collected 8 items
+
+test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m                                                         [100%][0m
+
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name       Stmts   Miss  Cover   Missing
+----------------------------------------
+app.py        25     15    40%   12-14, 21-32, 35
+score.py      11      0   100%
+----------------------------------------
+TOTAL         36     15    58%
+Coverage HTML written to dir htmlcov
+[32m============================== [32m[1m8 passed[0m[32m in 9.94s[0m[32m ===============================[0m

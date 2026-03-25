@@ -1,0 +1,677 @@
+[1m============================= test session starts ==============================[0m
+platform darwin -- Python 3.12.2, pytest-9.0.2, pluggy-1.5.0
+rootdir: /Users/amanraj/Developer/AppliedMachineLearning/Assignment_4
+plugins: anyio-4.2.0, cov-7.0.0
+collected 9 items
+
+test.py [32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mE[0m[31m                                                       [100%][0m
+
+==================================== ERRORS ====================================
+[31m[1m_______________________ ERROR at teardown of test_docker _______________________[0m
+
+    [0m[37m@pytest[39;49;00m.fixture(scope=[33m"[39;49;00m[33mmodule[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+    [94mdef[39;49;00m[90m [39;49;00m[92mflask_server[39;49;00m():[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Launch Flask via CLI, yield, then kill."""[39;49;00m[90m[39;49;00m
+        proc = subprocess.Popen([90m[39;49;00m
+            [[33m'[39;49;00m[33mflask[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33mrun[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33m--host=127.0.0.1[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33m--port=5000[39;49;00m[33m'[39;49;00m, [33m'[39;49;00m[33m--no-debugger[39;49;00m[33m'[39;49;00m],[90m[39;49;00m
+            cwd=os.getcwd(),  [90m# Ensure correct dir[39;49;00m[90m[39;49;00m
+            stdout=subprocess.PIPE,[90m[39;49;00m
+            stderr=subprocess.PIPE,[90m[39;49;00m
+            preexec_fn=os.setsid [94mif[39;49;00m os.name != [33m'[39;49;00m[33mnt[39;49;00m[33m'[39;49;00m [94melse[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
+        )[90m[39;49;00m
+        time.sleep([94m5[39;49;00m)  [90m# Wait longer for startup[39;49;00m[90m[39;49;00m
+        [94myield[39;49;00m proc[90m[39;49;00m
+        [94mif[39;49;00m os.name != [33m'[39;49;00m[33mnt[39;49;00m[33m'[39;49;00m:[90m[39;49;00m
+>           os.killpg(os.getpgid(proc.pid), signal.SIGTERM)[90m[39;49;00m
+                      ^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE           ProcessLookupError: [Errno 3] No such process[0m
+
+[1m[31mtest.py[0m:84: ProcessLookupError
+----------------------------- Captured stdout call -----------------------------
+Building Docker image...
+Running Docker container...
+Stopping and removing container abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea...
+abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea
+abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea
+----------------------------- Captured stderr call -----------------------------
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 650B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4
+#5 resolve docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 32.87kB 0.0s done
+#6 DONE 0.0s
+
+#7 [4/7] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/7] COPY app.py score.py ./
+#10 CACHED
+
+#11 [6/7] COPY test.py ./
+#11 DONE 0.0s
+
+#12 [7/7] COPY . .
+#12 DONE 0.0s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:b90a0cb37146853155aa079d68168b79368e2f3cbe23b7512f5918523c0a1230
+#13 exporting manifest sha256:b90a0cb37146853155aa079d68168b79368e2f3cbe23b7512f5918523c0a1230 done
+#13 exporting config sha256:92c8797155beadd3f76816cfda4ef843b1015e0abfe76fa7eca6dbbcff9a106a done
+#13 exporting attestation manifest sha256:854f52b40a3963d102ea9d48c445e1632d524942e3a777713bea6a3c70979a50 done
+#13 exporting manifest list sha256:b0277f54e9a682f1f53a6c01b7bfddf8ff6d4292ea65f6614964c21a33af2886 done
+#13 naming to docker.io/library/my_flask_app:latest done
+#13 unpacking to docker.io/library/my_flask_app:latest 0.0s done
+#13 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/q38yh64loavslmc1kdh29ljs7
+=================================== FAILURES ===================================
+[31m[1m_________________________________ test_docker __________________________________[0m
+
+self = <urllib3.connectionpool.HTTPConnectionPool object at 0x172fd47d0>
+method = 'POST', url = '/score'
+body = b'{"text": "This is a sample text for testing the model."}'
+headers = {'User-Agent': 'python-requests/2.32.2', 'Accept-Encoding': 'gzip, deflate, br', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '56', 'Content-Type': 'application/json'}
+retries = Retry(total=0, connect=None, read=False, redirect=None, status=None)
+redirect = False, assert_same_host = False
+timeout = Timeout(connect=None, read=None, total=None), pool_timeout = None
+release_conn = False, chunked = False, body_pos = None, preload_content = False
+decode_content = False, response_kw = {}
+parsed_url = Url(scheme=None, auth=None, host=None, port=None, path='/score', query=None, fragment=None)
+destination_scheme = None, conn = None, release_this_conn = True
+http_tunnel_required = False, err = None, clean_exit = False
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92murlopen[39;49;00m(  [90m# type: ignore[override][39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m,[90m[39;49;00m
+        method: [96mstr[39;49;00m,[90m[39;49;00m
+        url: [96mstr[39;49;00m,[90m[39;49;00m
+        body: _TYPE_BODY | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        headers: typing.Mapping[[96mstr[39;49;00m, [96mstr[39;49;00m] | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        retries: Retry | [96mbool[39;49;00m | [96mint[39;49;00m | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        redirect: [96mbool[39;49;00m = [94mTrue[39;49;00m,[90m[39;49;00m
+        assert_same_host: [96mbool[39;49;00m = [94mTrue[39;49;00m,[90m[39;49;00m
+        timeout: _TYPE_TIMEOUT = _DEFAULT_TIMEOUT,[90m[39;49;00m
+        pool_timeout: [96mint[39;49;00m | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        release_conn: [96mbool[39;49;00m | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        chunked: [96mbool[39;49;00m = [94mFalse[39;49;00m,[90m[39;49;00m
+        body_pos: _TYPE_BODY_POSITION | [94mNone[39;49;00m = [94mNone[39;49;00m,[90m[39;49;00m
+        preload_content: [96mbool[39;49;00m = [94mTrue[39;49;00m,[90m[39;49;00m
+        decode_content: [96mbool[39;49;00m = [94mTrue[39;49;00m,[90m[39;49;00m
+        **response_kw: typing.Any,[90m[39;49;00m
+    ) -> BaseHTTPResponse:[90m[39;49;00m
+    [90m    [39;49;00m[33m"""[39;49;00m
+    [33m    Get a connection from the pool and perform an HTTP request. This is the[39;49;00m
+    [33m    lowest level call for making a request, so you'll need to specify all[39;49;00m
+    [33m    the raw details.[39;49;00m
+    [33m[39;49;00m
+    [33m    .. note::[39;49;00m
+    [33m[39;49;00m
+    [33m       More commonly, it's appropriate to use a convenience method[39;49;00m
+    [33m       such as :meth:`request`.[39;49;00m
+    [33m[39;49;00m
+    [33m    .. note::[39;49;00m
+    [33m[39;49;00m
+    [33m       `release_conn` will only behave as expected if[39;49;00m
+    [33m       `preload_content=False` because we want to make[39;49;00m
+    [33m       `preload_content=False` the default behaviour someday soon without[39;49;00m
+    [33m       breaking backwards compatibility.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param method:[39;49;00m
+    [33m        HTTP request method (such as GET, POST, PUT, etc.)[39;49;00m
+    [33m[39;49;00m
+    [33m    :param url:[39;49;00m
+    [33m        The URL to perform the request on.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param body:[39;49;00m
+    [33m        Data to send in the request body, either :class:`str`, :class:`bytes`,[39;49;00m
+    [33m        an iterable of :class:`str`/:class:`bytes`, or a file-like object.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param headers:[39;49;00m
+    [33m        Dictionary of custom headers to send, such as User-Agent,[39;49;00m
+    [33m        If-None-Match, etc. If None, pool headers are used. If provided,[39;49;00m
+    [33m        these headers completely replace any pool-specific headers.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param retries:[39;49;00m
+    [33m        Configure the number of retries to allow before raising a[39;49;00m
+    [33m        :class:`~urllib3.exceptions.MaxRetryError` exception.[39;49;00m
+    [33m[39;49;00m
+    [33m        If ``None`` (default) will retry 3 times, see ``Retry.DEFAULT``. Pass a[39;49;00m
+    [33m        :class:`~urllib3.util.retry.Retry` object for fine-grained control[39;49;00m
+    [33m        over different types of retries.[39;49;00m
+    [33m        Pass an integer number to retry connection errors that many times,[39;49;00m
+    [33m        but no other types of errors. Pass zero to never retry.[39;49;00m
+    [33m[39;49;00m
+    [33m        If ``False``, then retries are disabled and any exception is raised[39;49;00m
+    [33m        immediately. Also, instead of raising a MaxRetryError on redirects,[39;49;00m
+    [33m        the redirect response will be returned.[39;49;00m
+    [33m[39;49;00m
+    [33m    :type retries: :class:`~urllib3.util.retry.Retry`, False, or an int.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param redirect:[39;49;00m
+    [33m        If True, automatically handle redirects (status codes 301, 302,[39;49;00m
+    [33m        303, 307, 308). Each redirect counts as a retry. Disabling retries[39;49;00m
+    [33m        will disable redirect, too.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param assert_same_host:[39;49;00m
+    [33m        If ``True``, will make sure that the host of the pool requests is[39;49;00m
+    [33m        consistent else will raise HostChangedError. When ``False``, you can[39;49;00m
+    [33m        use the pool on an HTTP proxy and request foreign hosts.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param timeout:[39;49;00m
+    [33m        If specified, overrides the default timeout for this one[39;49;00m
+    [33m        request. It may be a float (in seconds) or an instance of[39;49;00m
+    [33m        :class:`urllib3.util.Timeout`.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param pool_timeout:[39;49;00m
+    [33m        If set and the pool is set to block=True, then this method will[39;49;00m
+    [33m        block for ``pool_timeout`` seconds and raise EmptyPoolError if no[39;49;00m
+    [33m        connection is available within the time period.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param bool preload_content:[39;49;00m
+    [33m        If True, the response's body will be preloaded into memory.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param bool decode_content:[39;49;00m
+    [33m        If True, will attempt to decode the body based on the[39;49;00m
+    [33m        'content-encoding' header.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param release_conn:[39;49;00m
+    [33m        If False, then the urlopen call will not release the connection[39;49;00m
+    [33m        back into the pool once a response is received (but will release if[39;49;00m
+    [33m        you read the entire contents of the response such as when[39;49;00m
+    [33m        `preload_content=True`). This is useful if you're not preloading[39;49;00m
+    [33m        the response's content immediately. You will need to call[39;49;00m
+    [33m        ``r.release_conn()`` on the response ``r`` to return the connection[39;49;00m
+    [33m        back into the pool. If None, it takes the value of ``preload_content``[39;49;00m
+    [33m        which defaults to ``True``.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param bool chunked:[39;49;00m
+    [33m        If True, urllib3 will send the body using chunked transfer[39;49;00m
+    [33m        encoding. Otherwise, urllib3 will send the body using the standard[39;49;00m
+    [33m        content-length form. Defaults to False.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param int body_pos:[39;49;00m
+    [33m        Position to seek to in file-like body in the event of a retry or[39;49;00m
+    [33m        redirect. Typically this won't need to be set because urllib3 will[39;49;00m
+    [33m        auto-populate the value when needed.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        parsed_url = parse_url(url)[90m[39;49;00m
+        destination_scheme = parsed_url.scheme[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m headers [95mis[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+            headers = [96mself[39;49;00m.headers[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m [96misinstance[39;49;00m(retries, Retry):[90m[39;49;00m
+            retries = Retry.from_int(retries, redirect=redirect, default=[96mself[39;49;00m.retries)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m release_conn [95mis[39;49;00m [94mNone[39;49;00m:[90m[39;49;00m
+            release_conn = preload_content[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Check host[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m assert_same_host [95mand[39;49;00m [95mnot[39;49;00m [96mself[39;49;00m.is_same_host(url):[90m[39;49;00m
+            [94mraise[39;49;00m HostChangedError([96mself[39;49;00m, url, retries)[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Ensure that the URL we're connecting to is properly encoded[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m url.startswith([33m"[39;49;00m[33m/[39;49;00m[33m"[39;49;00m):[90m[39;49;00m
+            url = to_str(_encode_target(url))[90m[39;49;00m
+        [94melse[39;49;00m:[90m[39;49;00m
+            url = to_str(parsed_url.url)[90m[39;49;00m
+    [90m[39;49;00m
+        conn = [94mNone[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Track whether `conn` needs to be released before[39;49;00m[90m[39;49;00m
+        [90m# returning/raising/recursing. Update this variable if necessary, and[39;49;00m[90m[39;49;00m
+        [90m# leave `release_conn` constant throughout the function. That way, if[39;49;00m[90m[39;49;00m
+        [90m# the function recurses, the original value of `release_conn` will be[39;49;00m[90m[39;49;00m
+        [90m# passed down into the recursive call, and its value will be respected.[39;49;00m[90m[39;49;00m
+        [90m#[39;49;00m[90m[39;49;00m
+        [90m# See issue #651 [1] for details.[39;49;00m[90m[39;49;00m
+        [90m#[39;49;00m[90m[39;49;00m
+        [90m# [1] <https://github.com/urllib3/urllib3/issues/651>[39;49;00m[90m[39;49;00m
+        release_this_conn = release_conn[90m[39;49;00m
+    [90m[39;49;00m
+        http_tunnel_required = connection_requires_http_tunnel([90m[39;49;00m
+            [96mself[39;49;00m.proxy, [96mself[39;49;00m.proxy_config, destination_scheme[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Merge the proxy headers. Only done when not using HTTP CONNECT. We[39;49;00m[90m[39;49;00m
+        [90m# have to copy the headers dict so we can safely change it without those[39;49;00m[90m[39;49;00m
+        [90m# changes being reflected in anyone else's copy.[39;49;00m[90m[39;49;00m
+        [94mif[39;49;00m [95mnot[39;49;00m http_tunnel_required:[90m[39;49;00m
+            headers = headers.copy()  [90m# type: ignore[attr-defined][39;49;00m[90m[39;49;00m
+            headers.update([96mself[39;49;00m.proxy_headers)  [90m# type: ignore[union-attr][39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Must keep the exception bound to a separate variable or else Python 3[39;49;00m[90m[39;49;00m
+        [90m# complains about UnboundLocalError.[39;49;00m[90m[39;49;00m
+        err = [94mNone[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Keep track of whether we cleanly exited the except block. This[39;49;00m[90m[39;49;00m
+        [90m# ensures we do proper cleanup in finally.[39;49;00m[90m[39;49;00m
+        clean_exit = [94mFalse[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# Rewind body position, if needed. Record current position[39;49;00m[90m[39;49;00m
+        [90m# for future rewinds in the event of a redirect/retry.[39;49;00m[90m[39;49;00m
+        body_pos = set_file_position(body, body_pos)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            [90m# Request a connection from the queue.[39;49;00m[90m[39;49;00m
+            timeout_obj = [96mself[39;49;00m._get_timeout(timeout)[90m[39;49;00m
+            conn = [96mself[39;49;00m._get_conn(timeout=pool_timeout)[90m[39;49;00m
+    [90m[39;49;00m
+            conn.timeout = timeout_obj.connect_timeout  [90m# type: ignore[assignment][39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [90m# Is this a closed/new connection that requires CONNECT tunnelling?[39;49;00m[90m[39;49;00m
+            [94mif[39;49;00m [96mself[39;49;00m.proxy [95mis[39;49;00m [95mnot[39;49;00m [94mNone[39;49;00m [95mand[39;49;00m http_tunnel_required [95mand[39;49;00m conn.is_closed:[90m[39;49;00m
+                [94mtry[39;49;00m:[90m[39;49;00m
+                    [96mself[39;49;00m._prepare_proxy(conn)[90m[39;49;00m
+                [94mexcept[39;49;00m (BaseSSLError, [96mOSError[39;49;00m, SocketTimeout) [94mas[39;49;00m e:[90m[39;49;00m
+                    [96mself[39;49;00m._raise_timeout([90m[39;49;00m
+                        err=e, url=[96mself[39;49;00m.proxy.url, timeout_value=conn.timeout[90m[39;49;00m
+                    )[90m[39;49;00m
+                    [94mraise[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [90m# If we're going to release the connection in ``finally:``, then[39;49;00m[90m[39;49;00m
+            [90m# the response doesn't need to know about the connection. Otherwise[39;49;00m[90m[39;49;00m
+            [90m# it will also try to release it and we'll have a double-release[39;49;00m[90m[39;49;00m
+            [90m# mess.[39;49;00m[90m[39;49;00m
+            response_conn = conn [94mif[39;49;00m [95mnot[39;49;00m release_conn [94melse[39;49;00m [94mNone[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+            [90m# Make the request on the HTTPConnection object[39;49;00m[90m[39;49;00m
+>           response = [96mself[39;49;00m._make_request([90m[39;49;00m
+                conn,[90m[39;49;00m
+                method,[90m[39;49;00m
+                url,[90m[39;49;00m
+                timeout=timeout_obj,[90m[39;49;00m
+                body=body,[90m[39;49;00m
+                headers=headers,[90m[39;49;00m
+                chunked=chunked,[90m[39;49;00m
+                retries=retries,[90m[39;49;00m
+                response_conn=response_conn,[90m[39;49;00m
+                preload_content=preload_content,[90m[39;49;00m
+                decode_content=decode_content,[90m[39;49;00m
+                **response_kw,[90m[39;49;00m
+            )[90m[39;49;00m
+
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connectionpool.py[0m:793: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connectionpool.py[0m:537: in _make_request
+    [0mresponse = conn.getresponse()[90m[39;49;00m
+               ^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connection.py[0m:466: in getresponse
+    [0mhttplib_response = [96msuper[39;49;00m().getresponse()[90m[39;49;00m
+                       ^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:1423: in getresponse
+    [0mresponse.begin()[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:331: in begin
+    [0mversion, status, reason = [96mself[39;49;00m._read_status()[90m[39;49;00m
+                              ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:292: in _read_status
+    [0mline = [96mstr[39;49;00m([96mself[39;49;00m.fp.readline(_MAXLINE + [94m1[39;49;00m), [33m"[39;49;00m[33miso-8859-1[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x172fc3d00>, b = <memory at 0x1732b8a00>
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mreadinto[39;49;00m([96mself[39;49;00m, b):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Read up to len(b) bytes into the writable buffer *b* and return[39;49;00m
+    [33m    the number of bytes read.  If the socket is non-blocking and no bytes[39;49;00m
+    [33m    are available, None is returned.[39;49;00m
+    [33m[39;49;00m
+    [33m    If *b* is non-empty, a 0 return value indicates that the connection[39;49;00m
+    [33m    was shutdown at the other end.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m._checkClosed()[90m[39;49;00m
+        [96mself[39;49;00m._checkReadable()[90m[39;49;00m
+        [94mif[39;49;00m [96mself[39;49;00m._timeout_occurred:[90m[39;49;00m
+            [94mraise[39;49;00m [96mOSError[39;49;00m([33m"[39;49;00m[33mcannot read from timed out object[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mwhile[39;49;00m [94mTrue[39;49;00m:[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+>               [94mreturn[39;49;00m [96mself[39;49;00m._sock.recv_into(b)[90m[39;49;00m
+                       ^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE               ConnectionResetError: [Errno 54] Connection reset by peer[0m
+
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/socket.py[0m:707: ConnectionResetError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+self = <requests.adapters.HTTPAdapter object at 0x1064629c0>
+request = <PreparedRequest [POST]>, stream = False
+timeout = Timeout(connect=None, read=None, total=None), verify = True
+cert = None, proxies = OrderedDict()
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92msend[39;49;00m([90m[39;49;00m
+        [96mself[39;49;00m, request, stream=[94mFalse[39;49;00m, timeout=[94mNone[39;49;00m, verify=[94mTrue[39;49;00m, cert=[94mNone[39;49;00m, proxies=[94mNone[39;49;00m[90m[39;49;00m
+    ):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Sends PreparedRequest object. Returns Response object.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param request: The :class:`PreparedRequest <PreparedRequest>` being sent.[39;49;00m
+    [33m    :param stream: (optional) Whether to stream the request content.[39;49;00m
+    [33m    :param timeout: (optional) How long to wait for the server to send[39;49;00m
+    [33m        data before giving up, as a float, or a :ref:`(connect timeout,[39;49;00m
+    [33m        read timeout) <timeouts>` tuple.[39;49;00m
+    [33m    :type timeout: float or tuple or urllib3 Timeout object[39;49;00m
+    [33m    :param verify: (optional) Either a boolean, in which case it controls whether[39;49;00m
+    [33m        we verify the server's TLS certificate, or a string, in which case it[39;49;00m
+    [33m        must be a path to a CA bundle to use[39;49;00m
+    [33m    :param cert: (optional) Any user-provided SSL certificate to be trusted.[39;49;00m
+    [33m    :param proxies: (optional) The proxies dictionary to apply to the request.[39;49;00m
+    [33m    :rtype: requests.Response[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            conn = [96mself[39;49;00m.get_connection_with_tls_context([90m[39;49;00m
+                request, verify, proxies=proxies, cert=cert[90m[39;49;00m
+            )[90m[39;49;00m
+        [94mexcept[39;49;00m LocationValueError [94mas[39;49;00m e:[90m[39;49;00m
+            [94mraise[39;49;00m InvalidURL(e, request=request)[90m[39;49;00m
+    [90m[39;49;00m
+        [96mself[39;49;00m.cert_verify(conn, request.url, verify, cert)[90m[39;49;00m
+        url = [96mself[39;49;00m.request_url(request, proxies)[90m[39;49;00m
+        [96mself[39;49;00m.add_headers([90m[39;49;00m
+            request,[90m[39;49;00m
+            stream=stream,[90m[39;49;00m
+            timeout=timeout,[90m[39;49;00m
+            verify=verify,[90m[39;49;00m
+            cert=cert,[90m[39;49;00m
+            proxies=proxies,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        chunked = [95mnot[39;49;00m (request.body [95mis[39;49;00m [94mNone[39;49;00m [95mor[39;49;00m [33m"[39;49;00m[33mContent-Length[39;49;00m[33m"[39;49;00m [95min[39;49;00m request.headers)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m [96misinstance[39;49;00m(timeout, [96mtuple[39;49;00m):[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                connect, read = timeout[90m[39;49;00m
+                timeout = TimeoutSauce(connect=connect, read=read)[90m[39;49;00m
+            [94mexcept[39;49;00m [96mValueError[39;49;00m:[90m[39;49;00m
+                [94mraise[39;49;00m [96mValueError[39;49;00m([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mInvalid timeout [39;49;00m[33m{[39;49;00mtimeout[33m}[39;49;00m[33m. Pass a (connect, read) timeout tuple, [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mor a single float to set both timeouts to the same value.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+        [94melif[39;49;00m [96misinstance[39;49;00m(timeout, TimeoutSauce):[90m[39;49;00m
+            [94mpass[39;49;00m[90m[39;49;00m
+        [94melse[39;49;00m:[90m[39;49;00m
+            timeout = TimeoutSauce(connect=timeout, read=timeout)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+>           resp = conn.urlopen([90m[39;49;00m
+                method=request.method,[90m[39;49;00m
+                url=url,[90m[39;49;00m
+                body=request.body,[90m[39;49;00m
+                headers=request.headers,[90m[39;49;00m
+                redirect=[94mFalse[39;49;00m,[90m[39;49;00m
+                assert_same_host=[94mFalse[39;49;00m,[90m[39;49;00m
+                preload_content=[94mFalse[39;49;00m,[90m[39;49;00m
+                decode_content=[94mFalse[39;49;00m,[90m[39;49;00m
+                retries=[96mself[39;49;00m.max_retries,[90m[39;49;00m
+                timeout=timeout,[90m[39;49;00m
+                chunked=chunked,[90m[39;49;00m
+            )[90m[39;49;00m
+
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/adapters.py[0m:589: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connectionpool.py[0m:847: in urlopen
+    [0mretries = retries.increment([90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/util/retry.py[0m:470: in increment
+    [0m[94mraise[39;49;00m reraise([96mtype[39;49;00m(error), error, _stacktrace)[90m[39;49;00m
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/util/util.py[0m:38: in reraise
+    [0m[94mraise[39;49;00m value.with_traceback(tb)[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connectionpool.py[0m:793: in urlopen
+    [0mresponse = [96mself[39;49;00m._make_request([90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connectionpool.py[0m:537: in _make_request
+    [0mresponse = conn.getresponse()[90m[39;49;00m
+               ^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/urllib3/connection.py[0m:466: in getresponse
+    [0mhttplib_response = [96msuper[39;49;00m().getresponse()[90m[39;49;00m
+                       ^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:1423: in getresponse
+    [0mresponse.begin()[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:331: in begin
+    [0mversion, status, reason = [96mself[39;49;00m._read_status()[90m[39;49;00m
+                              ^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/http/client.py[0m:292: in _read_status
+    [0mline = [96mstr[39;49;00m([96mself[39;49;00m.fp.readline(_MAXLINE + [94m1[39;49;00m), [33m"[39;49;00m[33miso-8859-1[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <socket.SocketIO object at 0x172fc3d00>, b = <memory at 0x1732b8a00>
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mreadinto[39;49;00m([96mself[39;49;00m, b):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Read up to len(b) bytes into the writable buffer *b* and return[39;49;00m
+    [33m    the number of bytes read.  If the socket is non-blocking and no bytes[39;49;00m
+    [33m    are available, None is returned.[39;49;00m
+    [33m[39;49;00m
+    [33m    If *b* is non-empty, a 0 return value indicates that the connection[39;49;00m
+    [33m    was shutdown at the other end.[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+        [96mself[39;49;00m._checkClosed()[90m[39;49;00m
+        [96mself[39;49;00m._checkReadable()[90m[39;49;00m
+        [94mif[39;49;00m [96mself[39;49;00m._timeout_occurred:[90m[39;49;00m
+            [94mraise[39;49;00m [96mOSError[39;49;00m([33m"[39;49;00m[33mcannot read from timed out object[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        [94mwhile[39;49;00m [94mTrue[39;49;00m:[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+>               [94mreturn[39;49;00m [96mself[39;49;00m._sock.recv_into(b)[90m[39;49;00m
+                       ^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31mE               urllib3.exceptions.ProtocolError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))[0m
+
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/socket.py[0m:707: ProtocolError
+
+[33mDuring handling of the above exception, another exception occurred:[0m
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92mtest_docker[39;49;00m():[90m[39;49;00m
+        [96mprint[39;49;00m([33m"[39;49;00m[33mBuilding Docker image...[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        build_command = [33m"[39;49;00m[33mdocker build -t my_flask_app .[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+        os.system(build_command)[90m[39;49;00m
+    [90m[39;49;00m
+        [90m# FIX: Bind container's 5000 to host's 5001[39;49;00m[90m[39;49;00m
+        [96mprint[39;49;00m([33m"[39;49;00m[33mRunning Docker container...[39;49;00m[33m"[39;49;00m)[90m[39;49;00m
+        run_command = [[33m"[39;49;00m[33mdocker[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mrun[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m-d[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m-p[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33m5001:5000[39;49;00m[33m"[39;49;00m, [33m"[39;49;00m[33mmy_flask_app[39;49;00m[33m"[39;49;00m][90m[39;49;00m
+    [90m[39;49;00m
+        container_id = subprocess.check_output(run_command).decode([33m'[39;49;00m[33mutf-8[39;49;00m[33m'[39;49;00m).strip()[90m[39;49;00m
+        time.sleep([94m5[39;49;00m)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            [90m# FIX: Point request to port 5001[39;49;00m[90m[39;49;00m
+            url = [33m'[39;49;00m[33mhttp://127.0.0.1:5001/score[39;49;00m[33m'[39;49;00m[90m[39;49;00m
+            sample_data = {[33m"[39;49;00m[33mtext[39;49;00m[33m"[39;49;00m: [33m"[39;49;00m[33mThis is a sample text for testing the model.[39;49;00m[33m"[39;49;00m}[90m[39;49;00m
+    [90m[39;49;00m
+>           response = requests.post(url, json=sample_data)[90m[39;49;00m
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+
+[1m[31mtest.py[0m:131: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/api.py[0m:115: in post
+    [0m[94mreturn[39;49;00m request([33m"[39;49;00m[33mpost[39;49;00m[33m"[39;49;00m, url, data=data, json=json, **kwargs)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/api.py[0m:59: in request
+    [0m[94mreturn[39;49;00m session.request(method=method, url=url, **kwargs)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/sessions.py[0m:589: in request
+    [0mresp = [96mself[39;49;00m.send(prep, **send_kwargs)[90m[39;49;00m
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/sessions.py[0m:703: in send
+    [0mr = adapter.send(request, **kwargs)[90m[39;49;00m
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[90m[39;49;00m
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <requests.adapters.HTTPAdapter object at 0x1064629c0>
+request = <PreparedRequest [POST]>, stream = False
+timeout = Timeout(connect=None, read=None, total=None), verify = True
+cert = None, proxies = OrderedDict()
+
+    [0m[94mdef[39;49;00m[90m [39;49;00m[92msend[39;49;00m([90m[39;49;00m
+        [96mself[39;49;00m, request, stream=[94mFalse[39;49;00m, timeout=[94mNone[39;49;00m, verify=[94mTrue[39;49;00m, cert=[94mNone[39;49;00m, proxies=[94mNone[39;49;00m[90m[39;49;00m
+    ):[90m[39;49;00m
+    [90m    [39;49;00m[33m"""Sends PreparedRequest object. Returns Response object.[39;49;00m
+    [33m[39;49;00m
+    [33m    :param request: The :class:`PreparedRequest <PreparedRequest>` being sent.[39;49;00m
+    [33m    :param stream: (optional) Whether to stream the request content.[39;49;00m
+    [33m    :param timeout: (optional) How long to wait for the server to send[39;49;00m
+    [33m        data before giving up, as a float, or a :ref:`(connect timeout,[39;49;00m
+    [33m        read timeout) <timeouts>` tuple.[39;49;00m
+    [33m    :type timeout: float or tuple or urllib3 Timeout object[39;49;00m
+    [33m    :param verify: (optional) Either a boolean, in which case it controls whether[39;49;00m
+    [33m        we verify the server's TLS certificate, or a string, in which case it[39;49;00m
+    [33m        must be a path to a CA bundle to use[39;49;00m
+    [33m    :param cert: (optional) Any user-provided SSL certificate to be trusted.[39;49;00m
+    [33m    :param proxies: (optional) The proxies dictionary to apply to the request.[39;49;00m
+    [33m    :rtype: requests.Response[39;49;00m
+    [33m    """[39;49;00m[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            conn = [96mself[39;49;00m.get_connection_with_tls_context([90m[39;49;00m
+                request, verify, proxies=proxies, cert=cert[90m[39;49;00m
+            )[90m[39;49;00m
+        [94mexcept[39;49;00m LocationValueError [94mas[39;49;00m e:[90m[39;49;00m
+            [94mraise[39;49;00m InvalidURL(e, request=request)[90m[39;49;00m
+    [90m[39;49;00m
+        [96mself[39;49;00m.cert_verify(conn, request.url, verify, cert)[90m[39;49;00m
+        url = [96mself[39;49;00m.request_url(request, proxies)[90m[39;49;00m
+        [96mself[39;49;00m.add_headers([90m[39;49;00m
+            request,[90m[39;49;00m
+            stream=stream,[90m[39;49;00m
+            timeout=timeout,[90m[39;49;00m
+            verify=verify,[90m[39;49;00m
+            cert=cert,[90m[39;49;00m
+            proxies=proxies,[90m[39;49;00m
+        )[90m[39;49;00m
+    [90m[39;49;00m
+        chunked = [95mnot[39;49;00m (request.body [95mis[39;49;00m [94mNone[39;49;00m [95mor[39;49;00m [33m"[39;49;00m[33mContent-Length[39;49;00m[33m"[39;49;00m [95min[39;49;00m request.headers)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mif[39;49;00m [96misinstance[39;49;00m(timeout, [96mtuple[39;49;00m):[90m[39;49;00m
+            [94mtry[39;49;00m:[90m[39;49;00m
+                connect, read = timeout[90m[39;49;00m
+                timeout = TimeoutSauce(connect=connect, read=read)[90m[39;49;00m
+            [94mexcept[39;49;00m [96mValueError[39;49;00m:[90m[39;49;00m
+                [94mraise[39;49;00m [96mValueError[39;49;00m([90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mInvalid timeout [39;49;00m[33m{[39;49;00mtimeout[33m}[39;49;00m[33m. Pass a (connect, read) timeout tuple, [39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                    [33mf[39;49;00m[33m"[39;49;00m[33mor a single float to set both timeouts to the same value.[39;49;00m[33m"[39;49;00m[90m[39;49;00m
+                )[90m[39;49;00m
+        [94melif[39;49;00m [96misinstance[39;49;00m(timeout, TimeoutSauce):[90m[39;49;00m
+            [94mpass[39;49;00m[90m[39;49;00m
+        [94melse[39;49;00m:[90m[39;49;00m
+            timeout = TimeoutSauce(connect=timeout, read=timeout)[90m[39;49;00m
+    [90m[39;49;00m
+        [94mtry[39;49;00m:[90m[39;49;00m
+            resp = conn.urlopen([90m[39;49;00m
+                method=request.method,[90m[39;49;00m
+                url=url,[90m[39;49;00m
+                body=request.body,[90m[39;49;00m
+                headers=request.headers,[90m[39;49;00m
+                redirect=[94mFalse[39;49;00m,[90m[39;49;00m
+                assert_same_host=[94mFalse[39;49;00m,[90m[39;49;00m
+                preload_content=[94mFalse[39;49;00m,[90m[39;49;00m
+                decode_content=[94mFalse[39;49;00m,[90m[39;49;00m
+                retries=[96mself[39;49;00m.max_retries,[90m[39;49;00m
+                timeout=timeout,[90m[39;49;00m
+                chunked=chunked,[90m[39;49;00m
+            )[90m[39;49;00m
+    [90m[39;49;00m
+        [94mexcept[39;49;00m (ProtocolError, [96mOSError[39;49;00m) [94mas[39;49;00m err:[90m[39;49;00m
+>           [94mraise[39;49;00m [96mConnectionError[39;49;00m(err, request=request)[90m[39;49;00m
+[1m[31mE           requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))[0m
+
+[1m[31m/opt/anaconda3/envs/example_env/lib/python3.12/site-packages/requests/adapters.py[0m:604: ConnectionError
+----------------------------- Captured stdout call -----------------------------
+Building Docker image...
+Running Docker container...
+Stopping and removing container abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea...
+abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea
+abf35fdf2244dd947bb1d620056d02050b9b808353fc08837f21c1f8131593ea
+----------------------------- Captured stderr call -----------------------------
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 650B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [1/7] FROM docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4
+#5 resolve docker.io/library/python:3.12-slim@sha256:3d5ed973e45820f5ba5e46bd065bd88b3a504ff0724d85980dcd05eab361fcf4 0.0s done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 32.87kB 0.0s done
+#6 DONE 0.0s
+
+#7 [4/7] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [2/7] WORKDIR /app
+#8 CACHED
+
+#9 [3/7] COPY requirements.txt .
+#9 CACHED
+
+#10 [5/7] COPY app.py score.py ./
+#10 CACHED
+
+#11 [6/7] COPY test.py ./
+#11 DONE 0.0s
+
+#12 [7/7] COPY . .
+#12 DONE 0.0s
+
+#13 exporting to image
+#13 exporting layers 0.1s done
+#13 exporting manifest sha256:b90a0cb37146853155aa079d68168b79368e2f3cbe23b7512f5918523c0a1230
+#13 exporting manifest sha256:b90a0cb37146853155aa079d68168b79368e2f3cbe23b7512f5918523c0a1230 done
+#13 exporting config sha256:92c8797155beadd3f76816cfda4ef843b1015e0abfe76fa7eca6dbbcff9a106a done
+#13 exporting attestation manifest sha256:854f52b40a3963d102ea9d48c445e1632d524942e3a777713bea6a3c70979a50 done
+#13 exporting manifest list sha256:b0277f54e9a682f1f53a6c01b7bfddf8ff6d4292ea65f6614964c21a33af2886 done
+#13 naming to docker.io/library/my_flask_app:latest done
+#13 unpacking to docker.io/library/my_flask_app:latest 0.0s done
+#13 DONE 0.1s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/q38yh64loavslmc1kdh29ljs7
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.12.2-final-0 _______________
+
+Name       Stmts   Miss  Cover
+------------------------------
+app.py        25     15    40%
+score.py      11      0   100%
+test.py       96     15    84%
+------------------------------
+TOTAL        132     30    77%
+[36m[1m=========================== short test summary info ============================[0m
+[31mFAILED[0m test.py::[1mtest_docker[0m - requests.exceptions.ConnectionError: ('Connection aborted.', ConnectionRese...
+[31mERROR[0m test.py::[1mtest_docker[0m - ProcessLookupError: [Errno 3] No such process
+[31m==================== [31m[1m1 failed[0m, [32m8 passed[0m, [31m[1m1 error[0m[31m in 20.86s[0m[31m =====================[0m

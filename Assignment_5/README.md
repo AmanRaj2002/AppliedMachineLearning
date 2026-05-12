@@ -1,4 +1,4 @@
-## Assignment 5: Transfer Learning (CNN & Transformer)
+# Assignment 5: Transfer Learning (CNN & Transformer)
 
 This repository contains two robust Transfer Learning pipelines applied to Computer Vision and Natural Language Processing. Both models were trained using GPU acceleration (NVIDIA T4) in Google Colab.
 
